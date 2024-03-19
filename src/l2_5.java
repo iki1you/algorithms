@@ -3,11 +3,8 @@ import java.util.*;
 
 public class l2_5 {
     public static void main(String[] args) throws IOException {
-        int[] arr = {12, 11, 13, 5, 6, 7, 1241, 124, 22, 0, 12424};
-        //MergeSort(arr, 0, arr.length - 1);
         int len = fileLength();
         splitFile(1, len);
-
     }
 
 

@@ -55,7 +55,7 @@ public class LongNumber {
         return new LongNumber(result);
     }
     public String toString() {
-        StringBuilder result = new StringBuilder("");
+        StringBuilder result = new StringBuilder();
 
         for (int i = 1; i < shardedNumber.length; i++){
             result.append(String.format("%09d", shardedNumber[i]));

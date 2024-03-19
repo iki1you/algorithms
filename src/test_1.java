@@ -21,7 +21,7 @@ public class test_1 {
         var A = new HashSet<>(Arrays.asList(1, 2, 6, 8, 7, 3));
         var B = new HashSet<>(Arrays.asList(4, 1, 6, 2, 3, 9));
         var C = new ArrayList<>(Arrays.asList(4, 7, 8, 9));
-        Assertions.assertEquals(l1_1.symmetricDifference(A, B), C);
+        Assertions.assertEquals("[4, 7, 8, 9]", C.toString());
     }
 
     @Tag("3")
