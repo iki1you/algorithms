@@ -1,8 +1,6 @@
-import java.sql.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
-import java.util.Stack;
+
 
 public class l3_16 {
     public static void main(String[] args) {

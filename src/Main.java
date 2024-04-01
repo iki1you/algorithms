@@ -1,11 +1,151 @@
+import javax.management.openmbean.KeyAlreadyExistsException;
+import java.util.LinkedList;
 import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
-
+        Scanner in = new Scanner(System.in);
+        var table = new MyHashTable();
+        var a = "qwerty";
+        var b = "assafasf";
+        table.Put(a);
+        table.Put(b);
+        System.out.println(table.Get(6));
+        System.out.println(table.Get(4));
+        table.Delete(4);
+        System.out.println(table.Get(4));
     }
 
 }
 
+
+class Node {
+    public LinkedList<String> value = new LinkedList<String>();
+
+    public Node(String value) {
+        this.value.add(value);
+    }
+}
+
+class MyHashTable {
+    public int size = 1000000;
+    private Node[] array;
+
+
+    MyHashTable() {
+        array = new Node[size];
+    }
+
+    public void Put(String string) {
+        int key = getHash(string);
+        if (array[key] != null) {
+            array[key].value.add(string);
+        } else {
+            array[key] = new Node(string);
+        }
+    }
+
+    public LinkedList<String> Get(int hash) {
+        if (array[hash] == null || hash > size) {
+            throw new KeyAlreadyExistsException();
+        }
+        return array[hash].value;
+    }
+
+    public void Delete(int hash) {
+        if (array[hash] == null || hash > size) {
+            throw new KeyAlreadyExistsException();
+        }
+        array[hash].value.clear();
+    }
+
+    int getHash(String s) {
+        int h = 0;
+        for (int i = 0; i < s.length(); i++) {
+            h = (h * 31 + (int)s.charAt(i)) % 7;
+        }
+        System.out.println(h);
+        return h;
+    }
+}
+
+//class RedBlackTree {
+//    private static final boolean RED = true;
+//    private static final boolean BLACK = false;
+//
+//    class Node {
+//        int key;
+//        boolean color;
+//        Node left, right, parent;
+//
+//        public Node(int key) {
+//            this.key = key;
+//            color = RED;
+//            left = right = parent = null;
+//        }
+//    }
+//    private Node root;
+//    public RedBlackTree() {
+//        root = null;
+//    }
+//
+//    private  boolean isRed(Node node) {
+//        if (node == null) {
+//            return false;
+//        }
+//        return node.color == RED;
+//    }
+//
+//    private Node rotateLeft(Node h) {
+//        //TODO
+//        return h;
+//    }
+//
+//    private Node rotateRight(Node h) {
+//        //TODO
+//        return h;
+//    }
+//
+//    private void flipColors(Node h) {
+//        h.color = RED;
+//        h.left.color = h.right.color = BLACK;
+//    }
+//
+//    public void insert(int key) {
+//        root = insert(root, key);
+//        root.color = BLACK;
+//    }
+//
+//    private Node insert(Node h, int key) {
+//        //TODO
+//        return h;
+//    }
+//
+//    public Node search(int key) {
+//        //TODO
+//        return new Node(2);
+//    }
+//
+//    public void delete(int key) {
+//        root = delete(root, key);
+//    }
+//
+//    private Node delete(Node h, int key) {
+//        //TODO
+//        return h;
+//    }
+//
+//    private  Node deleteMin(Node h) {
+//        if (h.left == null) return h.right;
+//        h.left = deleteMin(h.left);
+//        return h;
+//    }
+//
+//    private Node findMin(Node node) {
+//        Node current = node;
+//        while (current.left != null) current = current.left;
+//        return current;
+//    }
+//}
 
 //public class Main {
 //    public static void main(String[] args) {

@@ -10,11 +10,22 @@ public class l2_1 {
         for (int i = 0; i < n; i++){
             array[i] = in.nextInt();  // array[i] = n - i;
         }
-        MergeSort(array, 1, n);
+
+
+        System.out.println(MaxTrio(array));
         System.out.println(Arrays.toString(array));
-        System.out.println((long)array[n - 1] * (long)array[n - 2] * (long)array[n - 3]);
     }
-    public static void MergeSort(int[] A, int p, int r){
+
+    public static long MaxTrio(int[] array) {
+        int l = array.length;
+        MergeSort(array, 1, l);
+        if (array[0] * array[1] > array[l - 2] * array[l - 1]) {
+            return (long)array[0] * (long)array[1] * (long)array[l - 1];
+        }
+        return (long)array[l - 3] * (long)array[l - 2] * (long)array[l - 1];
+    }
+
+    public static void MergeSort(int[] A, int p, int r) {
         if (p < r){
             int q = (p + r) / 2;
             MergeSort(A, p, q);

@@ -18,14 +18,6 @@ public class l2_7 {
             array[i] = new Point(in.nextInt(), 0, i - n * 2);
         }
 
-        Arrays.sort(array, (Point a, Point b) -> {
-            if (a.x != b.x) {
-                return Integer.compare(a.x, b.x);
-            } else {
-                return Integer.compare(a.type, b.type);
-            }
-        });
-
         QuickSort(array, 1, array.length - 1);
 
 
