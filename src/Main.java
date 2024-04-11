@@ -1,72 +1,126 @@
 import javax.management.openmbean.KeyAlreadyExistsException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Scanner;
+
+//  5
+//  9 10
+//  9,30 11
+//  10 11,30
+//  12 13,30
+//  11 13,20
 public class Main {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
-        var table = new MyHashTable();
-        var a = "qwerty";
-        var b = "assafasf";
-        table.Put(a);
-        table.Put(b);
-        System.out.println(table.Get(6));
-        System.out.println(table.Get(4));
-        table.Delete(4);
-        System.out.println(table.Get(4));
+        int n = in.nextInt();
+        double[][] array = new double[n][2];
+        for (int i = 0; i < n; i++) {
+            array[i][0] = in.nextDouble();
+            array[i][1] = in.nextDouble();
+        }
+        QuickSort(array, 1, array.length - 1);
+        var result = selectElems(array);
+        for (var i: result) {
+            System.out.println(i[0] + " " + i[1]);
+        }
     }
 
+    public static ArrayList<double[]> selectElems(double[][] arr) {
+        var result = new ArrayList<double[]>();
+        if (arr.length > 0) {
+            result.add(arr[0]);
+        }
+        for (int i = 1; i < arr.length; i++) {
+            if (result.get(result.size() - 1)[1] <= arr[i][0]) {
+                result.add(arr[i]);
+            }
+        }
+        return result;
+    }
+
+    public static void QuickSort(double[][] arr, int p, int r){
+        if (p < r) {
+            int q = Partition(arr, p, r);
+            QuickSort(arr, p, q - 1);
+            QuickSort(arr, q + 1, r);
+        }
+    }
+
+    public static int Partition(double[][] arr, int p, int r) {
+        double[] x = arr[r];
+        int i = p - 1;
+        for (int j = p; j < r; j++){
+            if (compare(x, arr[j])){
+                i++;
+                swap(arr, i, j);
+            }
+        }
+        swap(arr, i + 1, r);
+        return i + 1;
+    }
+
+    public static void swap(double[][] arr, int i, int j){
+        double[] temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+    }
+
+    public static boolean compare(double[] timeA, double[] timeB) {
+        return timeA[1] >= timeB[1];
+    }
 }
 
 
-class Node {
-    public LinkedList<String> value = new LinkedList<String>();
-
-    public Node(String value) {
-        this.value.add(value);
-    }
-}
-
-class MyHashTable {
-    public int size = 1000000;
-    private Node[] array;
-
-
-    MyHashTable() {
-        array = new Node[size];
-    }
-
-    public void Put(String string) {
-        int key = getHash(string);
-        if (array[key] != null) {
-            array[key].value.add(string);
-        } else {
-            array[key] = new Node(string);
-        }
-    }
-
-    public LinkedList<String> Get(int hash) {
-        if (array[hash] == null || hash > size) {
-            throw new KeyAlreadyExistsException();
-        }
-        return array[hash].value;
-    }
-
-    public void Delete(int hash) {
-        if (array[hash] == null || hash > size) {
-            throw new KeyAlreadyExistsException();
-        }
-        array[hash].value.clear();
-    }
-
-    int getHash(String s) {
-        int h = 0;
-        for (int i = 0; i < s.length(); i++) {
-            h = (h * 31 + (int)s.charAt(i)) % 7;
-        }
-        System.out.println(h);
-        return h;
-    }
-}
+//class Node {
+//    public LinkedList<String> value = new LinkedList<String>();
+//
+//    public Node(String value) {
+//        this.value.add(value);
+//    }
+//}
+//
+//class MyHashTable {
+//    public int size = 1000000;
+//    private Node[] array;
+//
+//
+//    MyHashTable() {
+//        array = new Node[size];
+//    }
+//
+//    public void Put(String string) {
+//        int key = getHash(string);
+//        if (array[key] != null) {
+//            array[key].value.add(string);
+//        } else {
+//            array[key] = new Node(string);
+//        }
+//    }
+//
+//    public LinkedList<String> Get(int hash) {
+//        if (array[hash] == null || hash > size) {
+//            throw new KeyAlreadyExistsException();
+//        }
+//        return array[hash].value;
+//    }
+//
+//    public void Delete(int hash) {
+//        if (array[hash] == null || hash > size) {
+//            throw new KeyAlreadyExistsException();
+//        }
+//        array[hash].value.clear();
+//    }
+//
+//    int getHash(String s) {
+//        int h = 0;
+//        for (int i = 0; i < s.length(); i++) {
+//            h = (h * 31 + (int)s.charAt(i)) % 7;
+//        }
+//        System.out.println(h);
+//        return h;
+//    }
+//}
 
 //class RedBlackTree {
 //    private static final boolean RED = true;

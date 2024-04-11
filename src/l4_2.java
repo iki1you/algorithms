@@ -87,6 +87,20 @@ class BinarySearchTree {
             inorderRec(root.right, stack);
         }
     }
+    TreeNode search(int keyFind) {
+        return searchRec(root, keyFind);
+    }
+
+    TreeNode searchRec(TreeNode node, int keyFind) {
+        if (node == null || keyFind == node.key) {
+            return node;
+        }
+        if (keyFind < node.key) {
+            return searchRec(node.left, keyFind);
+        } else {
+            return searchRec(node.right, keyFind);
+        }
+    }
 
     static boolean compareTrees(BinarySearchTree treeFirst, BinarySearchTree treeSecond) {
         var first = new Stack<Integer>();

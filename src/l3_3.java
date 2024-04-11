@@ -27,7 +27,7 @@ public class l3_3 {
         Scanner in = new Scanner(System.in);
         String[] array = new String[10];
         for (int i = 0; i < 10; i++) {
-            array[i] = in.nextLine();
+            array[i] = in.next();
             if (CheckBrackets(array[i])){
                 array[i] = "YES";
             }
